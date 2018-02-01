@@ -55,9 +55,18 @@ extension ListOfPostViewController {
     }
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension ListOfPostViewController: UITableViewDataSource {
+extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    fileprivate func setTableView() {
+        
+        tableView.frame = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        self.view.addSubview(tableView)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -67,20 +76,6 @@ extension ListOfPostViewController: UITableViewDataSource {
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
         cell.textLabel!.text = "foo"
         return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension ListOfPostViewController: UITableViewDelegate {
-    
-    fileprivate func setTableView() {
-        
-        tableView.frame = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        self.view.addSubview(tableView)
     }
 }
 
