@@ -14,6 +14,8 @@ class ListOfPostViewController: UIViewController  {
     weak var textField = UITextField()
     let tableView: UITableView = UITableView()
     
+    var postViewModel: PostViewModel = PostViewModel()
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -69,12 +71,13 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return postViewModel.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-        cell.textLabel!.text = "foo"
+        let post = postViewModel.postsArray[indexPath.row]
+        cell.textLabel!.text = post.blogName
         return cell
     }
 }
