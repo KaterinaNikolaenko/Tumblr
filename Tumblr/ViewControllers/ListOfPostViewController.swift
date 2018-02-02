@@ -53,6 +53,7 @@ extension ListOfPostViewController {
     }
     
     @objc func search() {
+        //Should delete!!!
         print("I am searching!")
     }
 }
@@ -75,9 +76,11 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
+
+        let cell = PostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         let post = postViewModel.postsArray[indexPath.row]
-        cell.textLabel!.text = post.blogName
+        cell.setPostData(post: post)
+        
         return cell
     }
 }
