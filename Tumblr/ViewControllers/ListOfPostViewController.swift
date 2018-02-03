@@ -7,15 +7,15 @@
 //
 
 import UIKit
+import Alamofire
 
 class ListOfPostViewController: UIViewController  {
     
     //UI
     weak var textField = UITextField()
     let tableView: UITableView = UITableView()
-    
-    var postViewModel: PostViewModel = PostViewModel()
-    
+    var postViewModel = PostViewModel()
+   
     // MARK: - LifeCycle
     
     override func viewDidLoad() {

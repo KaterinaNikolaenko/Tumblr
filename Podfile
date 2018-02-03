@@ -7,5 +7,6 @@ target 'Tumblr' do
 
   # Web services
     pod 'Alamofire'
+    pod 'SwiftyJSON'
 
 end
