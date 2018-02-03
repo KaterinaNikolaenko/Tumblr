@@ -16,6 +16,7 @@ class ListOfPostViewController: UIViewController  {
     
     let tableView: UITableView = UITableView()
     var postViewModel = PostViewModel()
+    var tappedPost: Post? = nil
    
     // MARK: - LifeCycle
     
@@ -88,15 +89,21 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = PostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+        cell.delegate = self
         let post = postViewModel.postsArray[indexPath.row]
+        tappedPost = postViewModel.postsArray[indexPath.row]
         cell.setPostData(post: post)
         
         return cell
     }
+}
+
+extension ListOfPostViewController: BlogDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "toShowDetails", sender: postViewModel.postsArray[indexPath.row])
+    func toReadBlog(){
+        self.performSegue(withIdentifier: "toShowDetails", sender: tappedPost)
     }
 }
+
 
 

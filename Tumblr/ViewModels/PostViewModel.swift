@@ -22,6 +22,7 @@ class PostViewModel: NSObject {
         postsArray.append(post1)
         postsArray.append(post2)
         postsArray.append(post3)
+        
         httpClient.getPosts { (success) -> Void in
             print("aaaa")
         }

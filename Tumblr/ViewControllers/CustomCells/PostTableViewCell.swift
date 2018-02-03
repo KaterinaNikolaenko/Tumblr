@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+protocol BlogDelegate: class {
+    func toReadBlog()
+}
+
+
 class PostTableViewCell: UITableViewCell {
     
     //UI
@@ -19,6 +24,8 @@ class PostTableViewCell: UITableViewCell {
     let summaryLabel = UILabel()
     let noteCountLabel = UILabel()
     let noteLabel = UILabel()
+    
+    weak var delegate: BlogDelegate?
     
      // MARK: - LifeCycle
     
@@ -56,7 +63,7 @@ extension PostTableViewCell {
         toReadButton.setTitle("Читать", for: .normal)
         toReadButton.titleLabel?.font = Constants.Font.mainFont
         toReadButton.setTitleColor(UIColor.blue, for: .normal)
-        toReadButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        toReadButton.addTarget(self, action: #selector(readDetails), for: .touchUpInside)
         
         summaryLabel.font = Constants.Font.mainFont
         summaryLabel.lineBreakMode = .byWordWrapping
@@ -123,7 +130,7 @@ extension PostTableViewCell {
         NSLayoutConstraint.activate([leadingNoteLabelContraints, bottomNoteLabelContraints])
     }
     
-    @objc fileprivate func buttonAction(sender: UIButton!) {
-        print("Button tapped") //Should delete!!!
+    @objc fileprivate func readDetails(sender: UIButton!) {
+        delegate?.toReadBlog()
     }
 }
