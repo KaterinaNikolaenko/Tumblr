@@ -39,9 +39,16 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:)")
     }
     
-    func setPostData(post:Post)
-    {
-        postImageView.image = UIImage(named: "testImage") //Should delete!!!
+    func setPostData(post:PhotoPost){
+        let imageURL = URL(string: post.urls[0])
+//        DispatchQueue.global(qos: .utility).async{
+            if let data = try? Data(contentsOf: imageURL!) {
+//                DispatchQueue.main.async {
+                    self.postImageView.image = UIImage(data: data)
+                }
+//            }
+//        }
+        
         blogNameLabel.text = post.blogName
         tagsLabel.text = post.tags
         summaryLabel.text = post.summary
@@ -58,6 +65,9 @@ extension PostTableViewCell {
         
         blogNameLabel.font = Constants.Font.mainFont
         blogNameLabel.textColor = UIColor.gray
+        
+        postImageView.contentMode = .scaleToFill
+        postImageView.clipsToBounds = true
         
         toReadButton.backgroundColor = .clear
         toReadButton.setTitle("Читать", for: .normal)

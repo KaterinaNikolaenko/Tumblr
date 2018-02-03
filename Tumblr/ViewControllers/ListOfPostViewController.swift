@@ -18,6 +18,9 @@ class ListOfPostViewController: UIViewController  {
     var postViewModel = PostViewModel()
     var tappedPost: Post? = nil
    
+    // private
+    fileprivate var httpClient:HttpClient = HttpClient()
+   
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -25,6 +28,10 @@ class ListOfPostViewController: UIViewController  {
         NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         setTableView()
+        
+        postViewModel.getPosts(tag: "lol") { (success) in
+            self.tableView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,6 +55,7 @@ extension ListOfPostViewController {
         textField?.borderStyle = UITextBorderStyle.roundedRect
         textField?.font = UIFont.systemFont(ofSize: 15)
         textField?.clearButtonMode = UITextFieldViewMode.whileEditing
+        textField?.text = "lol"
         
         navigationItem.titleView = textField
         let searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(search))
@@ -55,9 +63,9 @@ extension ListOfPostViewController {
     }
     
     @objc func search() {
-        
-        // Should call API method
-        tableView.reloadData()
+        postViewModel.getPosts(tag: (textField?.text)!) { (success) in
+            self.tableView.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -92,12 +100,10 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
         cell.delegate = self
         let post = postViewModel.postsArray[indexPath.row]
         
-        if let textPost = post as? TextPost {
-            // create textposttableviewcell
+        if let photoPost = post as? PhotoPost {
+            cell.setPostData(post: photoPost)
         }
-        
         tappedPost = postViewModel.postsArray[indexPath.row]
-        cell.setPostData(post: post)
         
         return cell
     }

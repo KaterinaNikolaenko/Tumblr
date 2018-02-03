@@ -15,9 +15,10 @@ class HttpClient{
     var postsArray = [Post]()
     
     //Get posts
-    func getPosts(completion: @escaping ([Post]) -> ()){
-        
-        Alamofire.request(Constants.URLs.baseURL + "tagged?tag=lol&api_key=" + Constants.URLs.apiKey, method: .get).validate(contentType: ["application/json"]).responseJSON { (responseData) -> Void in
+    func getPostsAPI(tag: String, completion: @escaping ([Post]) -> ()){
+      
+        postsArray.removeAll()
+        Alamofire.request(Constants.URLs.baseURL + "tagged?tag=" + tag + "&api_key=" + Constants.URLs.apiKey, method: .get).validate(contentType: ["application/json"]).responseJSON { (responseData) -> Void in
             
             if((responseData.result.value) != nil) {
                 let json = JSON(responseData.result.value!)

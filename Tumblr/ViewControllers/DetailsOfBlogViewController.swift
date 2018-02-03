@@ -33,7 +33,7 @@ extension DetailsOfBlogViewController {
     fileprivate func setUI()  {
        
         blogNameLabel.font = Constants.Font.mainFont
-         blogNameLabel.textColor = UIColor.red
+        blogNameLabel.textColor = UIColor.red
         blogNameLabel.text = currentPost?.blogName ?? ""
         
         postImageView.image = UIImage(named: "testImage") //Should delete!!!
