@@ -12,6 +12,7 @@ class VideoPostTableViewCell: PostTableViewCell {
 
     //UI
     let videoUrlLabel = UILabel()
+    var urlPost: String? = nil
     
     // MARK: - LifeCycle
     
@@ -27,14 +28,28 @@ class VideoPostTableViewCell: PostTableViewCell {
     
     func setPostData(post:VideoPost){
         super.setPostData(post: post)
-        
+
         videoUrlLabel.text = post.urlVideo
+        urlPost = post.urlVideo
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.onClicLabel(sender:)))
+        videoUrlLabel.isUserInteractionEnabled = true
+        videoUrlLabel.addGestureRecognizer(tap)
+    }
+    
+    @objc func onClicLabel(sender:UITapGestureRecognizer) {
+        let url = URL(string: urlPost!)!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
     }
     
     override func setUI()  {
         super.setUI()
         
         videoUrlLabel.font = Constants.Font.mainFont
+        videoUrlLabel.textColor = .blue
         
         contentView.addSubview(videoUrlLabel)
         videoUrlLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -46,5 +61,4 @@ class VideoPostTableViewCell: PostTableViewCell {
         let bottomPostImageViewContraints = NSLayoutConstraint(item: videoUrlLabel, attribute: .bottom, relatedBy: .equal, toItem: summaryLabel, attribute: .top, multiplier: 1.0, constant: -10)
         NSLayoutConstraint.activate([topPostImageViewContraints, leftPostImageViewContraints, rightPostImageViewContraints, bottomPostImageViewContraints])
     }
-
 }
