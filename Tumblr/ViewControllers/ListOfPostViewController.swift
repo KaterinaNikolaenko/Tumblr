@@ -13,6 +13,7 @@ class ListOfPostViewController: UIViewController  {
     
     //UI
     weak var textField = UITextField()
+    
     let tableView: UITableView = UITableView()
     var postViewModel = PostViewModel()
    
@@ -53,8 +54,17 @@ extension ListOfPostViewController {
     }
     
     @objc func search() {
-        //Should delete!!!
-        print("I am searching!")
+        
+        // Should call API method
+        tableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toShowDetails"{
+            let post = sender as! Post
+            let detailsVC = segue.destination as? DetailsOfBlogViewController
+            detailsVC!.currentPost = post
+        }
     }
 }
 
@@ -82,6 +92,10 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
         cell.setPostData(post: post)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "toShowDetails", sender: postViewModel.postsArray[indexPath.row])
     }
 }
 

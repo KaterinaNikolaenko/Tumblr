@@ -19,7 +19,7 @@ class HttpClient{
             
             if((responseData.result.value) != nil) {
                 let swiftyJsonVar = JSON(responseData.result.value!)
-                print(swiftyJsonVar)
+//                print(swiftyJsonVar)
             }
         }
     }
