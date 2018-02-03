@@ -31,6 +31,12 @@ class PhotoPostTableViewCell: PostTableViewCell {
 //        DispatchQueue.global(qos: .utility).async{
             if let data = try? Data(contentsOf: imageURL!) {
 //                DispatchQueue.main.async {
+                    self.postImageView.contentMode = .scaleAspectFit
+                    let screen_width = UIScreen.main.bounds.width
+                    let ratio =  CGFloat((UIImage(data: data)?.size.height)!) / CGFloat((UIImage(data: data)?.size.width)!)
+                    let newHeight = screen_width * ratio
+                    let heightPostImageViewContraints = NSLayoutConstraint(item: self.postImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: newHeight)
+                    NSLayoutConstraint.activate([heightPostImageViewContraints])
                     self.postImageView.image = UIImage(data: data)
 //                }
 //            }
@@ -39,9 +45,6 @@ class PhotoPostTableViewCell: PostTableViewCell {
     
     override func setUI()  {
         super.setUI()
-        
-        postImageView.contentMode = .scaleAspectFit
-        postImageView.clipsToBounds = true
         
         contentView.addSubview(postImageView)
         postImageView.translatesAutoresizingMaskIntoConstraints = false
