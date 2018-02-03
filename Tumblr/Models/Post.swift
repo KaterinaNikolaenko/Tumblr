@@ -10,15 +10,13 @@ import Foundation
 
 class Post: NSObject {
     var blogName: String
-    var imageUrl: String //Url
     var noteCount: Int
     var summary: String
     var tags: String
     
     
-    init(blogName: String, imageUrl: String, noteCount: Int, summary: String, tags: String) {
+    init(blogName: String, noteCount: Int, summary: String, tags: String) {
         self.blogName = blogName
-        self.imageUrl = imageUrl
         self.noteCount = noteCount
         self.summary = summary
         self.tags = tags

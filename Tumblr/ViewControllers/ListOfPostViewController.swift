@@ -91,6 +91,11 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = PostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         cell.delegate = self
         let post = postViewModel.postsArray[indexPath.row]
+        
+        if let textPost = post as? TextPost {
+            // create textposttableviewcell
+        }
+        
         tappedPost = postViewModel.postsArray[indexPath.row]
         cell.setPostData(post: post)
         
