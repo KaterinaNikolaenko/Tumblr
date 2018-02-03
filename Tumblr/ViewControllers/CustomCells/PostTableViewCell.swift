@@ -13,11 +13,9 @@ protocol BlogDelegate: class {
     func toReadBlog()
 }
 
-
 class PostTableViewCell: UITableViewCell {
     
     //UI
-    let postImageView = UIImageView()
     let blogNameLabel = UILabel()
     let toReadButton = UIButton()
     let tagsLabel = UILabel()
@@ -39,15 +37,7 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:)")
     }
     
-    func setPostData(post:PhotoPost){
-        let imageURL = URL(string: post.urls[0])
-//        DispatchQueue.global(qos: .utility).async{
-            if let data = try? Data(contentsOf: imageURL!) {
-//                DispatchQueue.main.async {
-                    self.postImageView.image = UIImage(data: data)
-                }
-//            }
-//        }
+    func setPostData(post: Post){
         
         blogNameLabel.text = post.blogName
         tagsLabel.text = post.tags
@@ -55,19 +45,11 @@ class PostTableViewCell: UITableViewCell {
         noteCountLabel.text = String(post.noteCount)
         noteLabel.text = " заметки"
     }
-}
-
-// MARK: - Private
-
-extension PostTableViewCell {
     
-    fileprivate func setUI()  {
+    func setUI()  {
         
         blogNameLabel.font = Constants.Font.mainFont
         blogNameLabel.textColor = UIColor.gray
-        
-        postImageView.contentMode = .scaleToFill
-        postImageView.clipsToBounds = true
         
         toReadButton.backgroundColor = .clear
         toReadButton.setTitle("Читать", for: .normal)
@@ -85,7 +67,6 @@ extension PostTableViewCell {
         noteCountLabel.font = Constants.Font.mainFont
         noteLabel.font = Constants.Font.mainFont
         
-        contentView.addSubview(postImageView)
         contentView.addSubview(blogNameLabel)
         contentView.addSubview(toReadButton)
         contentView.addSubview(summaryLabel)
@@ -93,7 +74,6 @@ extension PostTableViewCell {
         contentView.addSubview(noteCountLabel)
         contentView.addSubview(noteLabel)
         
-        postImageView.translatesAutoresizingMaskIntoConstraints = false
         blogNameLabel.translatesAutoresizingMaskIntoConstraints = false
         toReadButton.translatesAutoresizingMaskIntoConstraints = false
         summaryLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -110,13 +90,6 @@ extension PostTableViewCell {
         let trailingReadButtonContraints = NSLayoutConstraint(item: toReadButton, attribute: .leading, relatedBy: .equal, toItem: blogNameLabel, attribute: .trailing, multiplier: 1.0, constant: 10)
         let topReadButtonContraints = NSLayoutConstraint(item: toReadButton, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1.0, constant: 4)
         NSLayoutConstraint.activate([topReadButtonContraints, trailingReadButtonContraints])
-        
-        // Contraints for postImageView
-        let topPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .top, relatedBy: .equal, toItem: blogNameLabel, attribute: .bottom, multiplier: 1.0, constant: 10)
-        let leftPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 10)
-        let rightPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1.0, constant: -10)
-        let bottomPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .bottom, relatedBy: .equal, toItem: summaryLabel, attribute: .top, multiplier: 1.0, constant: -10)
-        NSLayoutConstraint.activate([topPostImageViewContraints, leftPostImageViewContraints, rightPostImageViewContraints, bottomPostImageViewContraints])
         
         // Contraints for summaryLabel
         let leadingSummaryLabelContraints = NSLayoutConstraint(item: summaryLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 10)
@@ -144,3 +117,5 @@ extension PostTableViewCell {
         delegate?.toReadBlog()
     }
 }
+
+

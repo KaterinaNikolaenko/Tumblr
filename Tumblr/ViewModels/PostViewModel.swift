@@ -18,10 +18,12 @@ class PostViewModel: NSObject {
     // Get all posts by tag from API
     func getPosts(tag: String, completion: @escaping (Bool) -> ()) {
 
+        postsArray.removeAll()
         httpClient.getPostsAPI(tag: tag) { (postsArray) -> Void in
             self.postsArray = postsArray
             completion(true)
         }
+        completion(false)
     }
     
     func numberOfRowsInSection() -> Int {

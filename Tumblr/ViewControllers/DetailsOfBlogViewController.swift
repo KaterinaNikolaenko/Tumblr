@@ -31,12 +31,21 @@ class DetailsOfBlogViewController: UIViewController {
 extension DetailsOfBlogViewController {
     
     fileprivate func setUI()  {
-       
+        
         blogNameLabel.font = Constants.Font.mainFont
         blogNameLabel.textColor = UIColor.red
         blogNameLabel.text = currentPost?.blogName ?? ""
         
-        postImageView.image = UIImage(named: "testImage") //Should delete!!!
+        if let photoPost = currentPost as? PhotoPost {
+            let imageURL = URL(string: photoPost.urls[0])
+            DispatchQueue.global(qos: .utility).async{
+                if let data = try? Data(contentsOf: imageURL!) {
+                    DispatchQueue.main.async {
+                        self.postImageView.image = UIImage(data: data)
+                    }
+                }
+            }
+        }
         
         self.view.addSubview(postImageView)
         self.view.addSubview(blogNameLabel)

@@ -26,6 +26,10 @@
 		069806572025C8B5005CF3B6 /* ChatPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069806562025C8B5005CF3B6 /* ChatPost.swift */; };
 		069806592025C8CA005CF3B6 /* AudioPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069806582025C8CA005CF3B6 /* AudioPost.swift */; };
 		0698065B2025C8D8005CF3B6 /* AnswerPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0698065A2025C8D8005CF3B6 /* AnswerPost.swift */; };
+		069D1FD42025F5E200AE686B /* PhotoPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069D1FD32025F5E200AE686B /* PhotoPostTableViewCell.swift */; };
+		069D1FD62026047700AE686B /* VideoPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069D1FD52026047700AE686B /* VideoPostTableViewCell.swift */; };
+		069D1FD82026048A00AE686B /* AudioPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069D1FD72026048A00AE686B /* AudioPostTableViewCell.swift */; };
+		069D1FDA2026049B00AE686B /* TextPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069D1FD92026049B00AE686B /* TextPostTableViewCell.swift */; };
 		9CFB71AB1CAB85F79C67C937 /* Pods_Tumblr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC8C8EF7A527E0759FE3276 /* Pods_Tumblr.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +55,10 @@
 		069806562025C8B5005CF3B6 /* ChatPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPost.swift; sourceTree = "<group>"; };
 		069806582025C8CA005CF3B6 /* AudioPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPost.swift; sourceTree = "<group>"; };
 		0698065A2025C8D8005CF3B6 /* AnswerPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPost.swift; sourceTree = "<group>"; };
+		069D1FD32025F5E200AE686B /* PhotoPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPostTableViewCell.swift; sourceTree = "<group>"; };
+		069D1FD52026047700AE686B /* VideoPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPostTableViewCell.swift; sourceTree = "<group>"; };
+		069D1FD72026048A00AE686B /* AudioPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPostTableViewCell.swift; sourceTree = "<group>"; };
+		069D1FD92026049B00AE686B /* TextPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPostTableViewCell.swift; sourceTree = "<group>"; };
 		3D5557B6FEF2692E3EA5363F /* Pods-Tumblr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tumblr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tumblr/Pods-Tumblr.release.xcconfig"; sourceTree = "<group>"; };
 		8EC8C8EF7A527E0759FE3276 /* Pods_Tumblr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tumblr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4F848DAC0F09A4DD5B86C69 /* Pods-Tumblr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tumblr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tumblr/Pods-Tumblr.debug.xcconfig"; sourceTree = "<group>"; };
@@ -157,6 +165,10 @@
 			isa = PBXGroup;
 			children = (
 				069806422023B7DB005CF3B6 /* PostTableViewCell.swift */,
+				069D1FD32025F5E200AE686B /* PhotoPostTableViewCell.swift */,
+				069D1FD52026047700AE686B /* VideoPostTableViewCell.swift */,
+				069D1FD72026048A00AE686B /* AudioPostTableViewCell.swift */,
+				069D1FD92026049B00AE686B /* TextPostTableViewCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -325,15 +337,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				069D1FD42025F5E200AE686B /* PhotoPostTableViewCell.swift in Sources */,
 				069806412023B2BA005CF3B6 /* PostViewModel.swift in Sources */,
 				0698065B2025C8D8005CF3B6 /* AnswerPost.swift in Sources */,
+				069D1FD62026047700AE686B /* VideoPostTableViewCell.swift in Sources */,
 				069806512025C877005CF3B6 /* VideoPost.swift in Sources */,
 				0698063F2023B0F5005CF3B6 /* Post.swift in Sources */,
 				0698064F2025C869005CF3B6 /* PhotoPost.swift in Sources */,
 				0698064D2025C855005CF3B6 /* TextPost.swift in Sources */,
 				069806592025C8CA005CF3B6 /* AudioPost.swift in Sources */,
 				069806432023B7DB005CF3B6 /* PostTableViewCell.swift in Sources */,
+				069D1FD82026048A00AE686B /* AudioPostTableViewCell.swift in Sources */,
 				069806552025C8A7005CF3B6 /* LinkPost.swift in Sources */,
+				069D1FDA2026049B00AE686B /* TextPostTableViewCell.swift in Sources */,
 				069806532025C897005CF3B6 /* QuotePost.swift in Sources */,
 				0606EB2E201A4C2600BB0E6E /* ListOfPostViewController.swift in Sources */,
 				0698064920250D9F005CF3B6 /* HttpClient.swift in Sources */,

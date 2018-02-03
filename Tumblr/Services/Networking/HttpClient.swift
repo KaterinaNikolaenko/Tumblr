@@ -16,7 +16,7 @@ class HttpClient{
     
     //Get posts
     func getPostsAPI(tag: String, completion: @escaping ([Post]) -> ()){
-      
+        
         postsArray.removeAll()
         Alamofire.request(Constants.URLs.baseURL + "tagged?tag=" + tag + "&api_key=" + Constants.URLs.apiKey, method: .get).validate(contentType: ["application/json"]).responseJSON { (responseData) -> Void in
             
@@ -42,7 +42,11 @@ class HttpClient{
                         }
                             // Video type of Post
                         else if item["type"].stringValue == "video" {
-                            self.postsArray.append(VideoPost(blogName: item["blog_name"].stringValue, noteCount: item["note_count"].intValue, summary: item["summary"].stringValue, tags: tags, urlVideo: item["video_url"].stringValue))
+                            if item["video_url"].stringValue != "" {
+                                self.postsArray.append(VideoPost(blogName: item["blog_name"].stringValue, noteCount: item["note_count"].intValue, summary: item["summary"].stringValue, tags: tags, urlVideo: item["video_url"].stringValue))
+                            } else {
+                                self.postsArray.append(VideoPost(blogName: item["blog_name"].stringValue, noteCount: item["note_count"].intValue, summary: item["summary"].stringValue, tags: tags, urlVideo: item["permalink_url"].stringValue))
+                            }
                         }
                             // Quote type of Post
                         else if item["type"].stringValue == "quote" {
@@ -53,19 +57,19 @@ class HttpClient{
                             self.postsArray.append(TextPost(blogName: item["blog_name"].stringValue, noteCount: item["note_count"].intValue, summary: item["summary"].stringValue, tags: tags, body: item["body"].stringValue))
                         }
                             // Link type of Post
-                        else if item["type"].stringValue == "text" {
+                        else if item["type"].stringValue == "link" {
                             self.postsArray.append(LinkPost(blogName: item["blog_name"].stringValue, noteCount: item["note_count"].intValue, summary: item["summary"].stringValue, tags: tags, url: item["url"].stringValue))
                         }
                             // Chat type of Post
-                        else if item["type"].stringValue == "text" {
+                        else if item["type"].stringValue == "chat" {
                             self.postsArray.append(ChatPost(blogName: item["blog_name"].stringValue, noteCount: item["note_count"].intValue, summary: item["summary"].stringValue, tags: tags, body: item["body"].stringValue))
                         }
                             // Answer type of Post
-                        else if item["type"].stringValue == "text" {
+                        else if item["type"].stringValue == "answer" {
                             self.postsArray.append(AnswerPost(blogName: item["blog_name"].stringValue, noteCount: item["note_count"].intValue, summary: item["summary"].stringValue, tags: tags, question: item["question"].stringValue, answer: item["answer"].stringValue))
                         }
                             // Audio type of Post
-                        else if item["type"].stringValue == "text" {
+                        else if item["type"].stringValue == "audio" {
                             self.postsArray.append(AudioPost(blogName: item["blog_name"].stringValue, noteCount: item["note_count"].intValue, summary: item["summary"].stringValue, tags: tags, audioSourceUrl: item["audio_source_url"].stringValue))
                         }
                     }

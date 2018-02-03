@@ -95,18 +95,35 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = PostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-        cell.delegate = self
+        
+        var cell = PostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         let post = postViewModel.postsArray[indexPath.row]
         
         if let photoPost = post as? PhotoPost {
-            cell.setPostData(post: photoPost)
+            let photoPostCell = PhotoPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+            photoPostCell.setPostData(post: photoPost)
+            cell = photoPostCell
+        } else if let videoPost = post as? VideoPost {
+            let videoPostCell = VideoPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+            videoPostCell.setPostData(post: videoPost)
+            cell = videoPostCell
+        } else if let audioPost = post as? AudioPost {
+            let audioPostCell = AudioPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+            audioPostCell.setPostData(post: audioPost)
+            cell = audioPostCell
+        } else {
+            let textPostCell = TextPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+            textPostCell.setPostData(post: post)
+            cell = textPostCell
         }
+        cell.delegate = self
         tappedPost = postViewModel.postsArray[indexPath.row]
         
         return cell
     }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 200
+//    }
 }
 
 // MARK: - BlogDelegate
