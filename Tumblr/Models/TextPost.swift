@@ -14,6 +14,5 @@ class TextPost: Post {
     init(blogName: String, noteCount: Int, summary: String, tags: String, body: String) {
         self.body = body
         super.init(blogName: blogName, noteCount: noteCount, summary: summary, tags: tags)
-        
     }
 }

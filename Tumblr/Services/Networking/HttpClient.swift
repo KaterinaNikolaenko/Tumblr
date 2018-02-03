@@ -68,7 +68,6 @@ class HttpClient{
                         else if item["type"].stringValue == "text" {
                             self.postsArray.append(AudioPost(blogName: item["blog_name"].stringValue, noteCount: item["note_count"].intValue, summary: item["summary"].stringValue, tags: tags, audioSourceUrl: item["audio_source_url"].stringValue))
                         }
-                        
                     }
                     completion(self.postsArray)
                 }

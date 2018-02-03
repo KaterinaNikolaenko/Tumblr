@@ -14,6 +14,5 @@ class LinkPost: Post {
     init(blogName: String, noteCount: Int, summary: String, tags: String, url: String) {
         self.url = url
         super.init(blogName: blogName, noteCount: noteCount, summary: summary, tags: tags)
-        
     }
 }

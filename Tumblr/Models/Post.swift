@@ -14,7 +14,6 @@ class Post: NSObject {
     var summary: String
     var tags: String
     
-    
     init(blogName: String, noteCount: Int, summary: String, tags: String) {
         self.blogName = blogName
         self.noteCount = noteCount

@@ -109,6 +109,8 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// MARK: - BlogDelegate
+
 extension ListOfPostViewController: BlogDelegate {
     
     func toReadBlog(){

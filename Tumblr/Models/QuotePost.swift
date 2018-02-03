@@ -14,6 +14,5 @@ class QuotePost: Post {
     init(blogName: String, noteCount: Int, summary: String, tags: String, text: String) {
         self.text = text
         super.init(blogName: blogName, noteCount: noteCount, summary: summary, tags: tags)
-        
     }
 }

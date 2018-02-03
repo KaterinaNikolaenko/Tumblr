@@ -15,6 +15,7 @@ class PostViewModel: NSObject {
     // private
     fileprivate var httpClient:HttpClient = HttpClient()
     
+    // Get all posts by tag from API
     func getPosts(tag: String, completion: @escaping (Bool) -> ()) {
 
         httpClient.getPostsAPI(tag: tag) { (postsArray) -> Void in

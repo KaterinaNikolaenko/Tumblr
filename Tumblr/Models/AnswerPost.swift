@@ -16,6 +16,5 @@ class AnswerPost: Post {
         self.question = question
         self.answer = answer
         super.init(blogName: blogName, noteCount: noteCount, summary: summary, tags: tags)
-        
     }
 }

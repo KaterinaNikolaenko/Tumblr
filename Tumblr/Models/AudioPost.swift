@@ -14,6 +14,5 @@ class AudioPost: Post {
     init(blogName: String, noteCount: Int, summary: String, tags: String, audioSourceUrl: String) {
         self.audioSourceUrl = audioSourceUrl
         super.init(blogName: blogName, noteCount: noteCount, summary: summary, tags: tags)
-        
     }
 }

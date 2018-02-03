@@ -14,6 +14,5 @@ class VideoPost: Post {
     init(blogName: String, noteCount: Int, summary: String, tags: String, urlVideo: String) {
         self.urlVideo = urlVideo
         super.init(blogName: blogName, noteCount: noteCount, summary: summary, tags: tags)
-        
     }
 }
