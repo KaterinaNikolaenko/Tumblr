@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ViseoPost: Post {
+class VideoPost: Post {
     var urlVideo: String
     
     init(blogName: String, noteCount: Int, summary: String, tags: String, urlVideo: String) {

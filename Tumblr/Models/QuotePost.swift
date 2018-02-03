@@ -9,10 +9,10 @@
 import Foundation
 
 class QuotePost: Post {
-    var source: String
+    var text: String
     
-    init(blogName: String, noteCount: Int, summary: String, tags: String, source: String) {
-        self.source = source
+    init(blogName: String, noteCount: Int, summary: String, tags: String, text: String) {
+        self.text = text
         super.init(blogName: blogName, noteCount: noteCount, summary: summary, tags: tags)
         
     }
