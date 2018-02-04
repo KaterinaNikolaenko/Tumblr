@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 
 class ListOfPostViewController: UIViewController  {
     
@@ -17,10 +18,7 @@ class ListOfPostViewController: UIViewController  {
     let tableView: UITableView = UITableView()
     var postViewModel = PostViewModel()
     var tappedPost: Post? = nil
-   
-    // private
-    fileprivate var httpClient:HttpClient = HttpClient()
-   
+      
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -87,6 +85,9 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.dataSource = self
         tableView.delegate = self
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 200
+        
         self.view.addSubview(tableView)
     }
     
@@ -96,23 +97,34 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = PostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+        var cell = PostTableViewCell()
         let post = postViewModel.postsArray[indexPath.row]
         
         if let photoPost = post as? PhotoPost {
-            let photoPostCell = PhotoPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-            photoPostCell.setPostData(post: photoPost)
+            let photoPostCell = PhotoPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellPhoto")
+            
+            photoPostCell.setPostDataNew(post: photoPost)
             cell = photoPostCell
+            let url = URL(string: photoPost.urls[0])
+            let filter = AspectRatioScaledToWidthFilter(width: tableView.frame.width)
+            photoPostCell.postImageView.af_setImage(withURL: url!, filter: filter, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5),  runImageTransitionIfCached: false) { response in
+                // Check if the image isn't already cached
+                if response.response != nil {
+                    // Force the cell update
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
+                }
+            }
         } else if let videoPost = post as? VideoPost {
-            let videoPostCell = VideoPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+            let videoPostCell = VideoPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellVideo")
             videoPostCell.setPostData(post: videoPost)
             cell = videoPostCell
         } else if let audioPost = post as? AudioPost {
-            let audioPostCell = AudioPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+            let audioPostCell = AudioPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellAudio")
             audioPostCell.setPostData(post: audioPost)
             cell = audioPostCell
         } else {
-            let textPostCell = TextPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+            let textPostCell = TextPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellText")
             textPostCell.setPostData(post: post)
             cell = textPostCell
         }

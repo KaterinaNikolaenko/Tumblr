@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class PhotoPostTableViewCell: PostTableViewCell {
    
@@ -25,22 +26,21 @@ class PhotoPostTableViewCell: PostTableViewCell {
         fatalError("init(coder:)")
     }
     
-    func setPostData(post:PhotoPost){
+    func setPostDataNew(post:PhotoPost){
+        
         super.setPostData(post: post)
-        let imageURL = URL(string: post.urls[0])
-//        DispatchQueue.global(qos: .utility).async{
-            if let data = try? Data(contentsOf: imageURL!) {
-//                DispatchQueue.main.async {
-                    self.postImageView.contentMode = .scaleAspectFit
-                    let screen_width = UIScreen.main.bounds.width
-                    let ratio =  CGFloat((UIImage(data: data)?.size.height)!) / CGFloat((UIImage(data: data)?.size.width)!)
-                    let newHeight = screen_width * ratio
-                    let heightPostImageViewContraints = NSLayoutConstraint(item: self.postImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: newHeight)
-                    NSLayoutConstraint.activate([heightPostImageViewContraints])
-                    self.postImageView.image = UIImage(data: data)
-//                }
-//            }
-        }
+    }
+    
+    func setPhoto (image: UIImage) {
+        self.postImageView.contentMode = .scaleAspectFit
+        let screenWidth = UIScreen.main.bounds.width
+        let ratio =  CGFloat(image.size.height) / CGFloat(image.size.width)
+        
+        let newHeight = screenWidth * ratio
+        let heightPostImageViewContraints = NSLayoutConstraint(item: self.postImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: newHeight)
+        NSLayoutConstraint.activate([heightPostImageViewContraints])
+        self.postImageView.image = image
+        
     }
     
     override func setUI()  {
@@ -55,6 +55,14 @@ class PhotoPostTableViewCell: PostTableViewCell {
         let rightPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1.0, constant: -10)
         let bottomPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .bottom, relatedBy: .equal, toItem: summaryLabel, attribute: .top, multiplier: 1.0, constant: -10)
         NSLayoutConstraint.activate([topPostImageViewContraints, leftPostImageViewContraints, rightPostImageViewContraints, bottomPostImageViewContraints])
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        postImageView.af_cancelImageRequest()
+        postImageView.layer.removeAllAnimations()
+        postImageView.image = nil
     }
 }
 
