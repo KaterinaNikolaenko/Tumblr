@@ -108,9 +108,7 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
             let url = URL(string: photoPost.urls[0])
             let filter = AspectRatioScaledToWidthFilter(width: tableView.frame.width)
             photoPostCell.postImageView.af_setImage(withURL: url!, filter: filter, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5),  runImageTransitionIfCached: false) { response in
-                // Check if the image isn't already cached
                 if response.response != nil {
-                    // Force the cell update
                     self.tableView.beginUpdates()
                     self.tableView.endUpdates()
                 }

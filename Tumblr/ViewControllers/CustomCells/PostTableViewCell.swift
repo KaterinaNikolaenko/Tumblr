@@ -74,43 +74,30 @@ class PostTableViewCell: UITableViewCell {
         contentView.addSubview(noteCountLabel)
         contentView.addSubview(noteLabel)
         
-        blogNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        toReadButton.translatesAutoresizingMaskIntoConstraints = false
-        summaryLabel.translatesAutoresizingMaskIntoConstraints = false
-        tagsLabel.translatesAutoresizingMaskIntoConstraints = false
-        noteCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        noteLabel.translatesAutoresizingMaskIntoConstraints = false
+        blogNameLabel
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 10)
+            .topAnchor(equalTo: contentView.topAnchor, constant: 10)
         
-        // Contraints for blogNameLabel
-        let leadingBlogNameLabelContraints = NSLayoutConstraint(item: blogNameLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 10)
-        let topBlogNameLabelContraints = NSLayoutConstraint(item: blogNameLabel, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1.0, constant: 10)
-        NSLayoutConstraint.activate([leadingBlogNameLabelContraints, topBlogNameLabelContraints])
+        toReadButton
+            .leadingAnchor(equalTo: blogNameLabel.trailingAnchor, constant: 10)
+            .topAnchor(equalTo: contentView.topAnchor, constant: 4)
         
-        // Contraints for toReadButton
-        let trailingReadButtonContraints = NSLayoutConstraint(item: toReadButton, attribute: .leading, relatedBy: .equal, toItem: blogNameLabel, attribute: .trailing, multiplier: 1.0, constant: 10)
-        let topReadButtonContraints = NSLayoutConstraint(item: toReadButton, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1.0, constant: 4)
-        NSLayoutConstraint.activate([topReadButtonContraints, trailingReadButtonContraints])
-        
-        // Contraints for summaryLabel
-        let leadingSummaryLabelContraints = NSLayoutConstraint(item: summaryLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 10)
-        let trailingSummaryLabelContraints = NSLayoutConstraint(item: summaryLabel, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1.0, constant: -10)
-        let bottomSummaryLabelContraints = NSLayoutConstraint(item: summaryLabel, attribute: .bottom, relatedBy: .equal, toItem: tagsLabel, attribute: .top, multiplier: 1.0, constant: -10)
-        NSLayoutConstraint.activate([leadingSummaryLabelContraints, trailingSummaryLabelContraints, bottomSummaryLabelContraints])
-        
-        // Contraints for tagsLabel
-        let leadingTagsLabelContraints = NSLayoutConstraint(item: tagsLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 10)
-        let bottomTagsLabelContraints = NSLayoutConstraint(item: tagsLabel, attribute: .bottom, relatedBy: .equal, toItem: noteCountLabel, attribute: .top, multiplier: 1.0, constant: -10)
-        NSLayoutConstraint.activate([leadingTagsLabelContraints, bottomTagsLabelContraints])
-        
-        // Contraints for noteCountLabel
-        let leadingNoteCountLabelContraints = NSLayoutConstraint(item: noteCountLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 10)
-        let bottomNoteCountLabelContraints = NSLayoutConstraint(item: noteCountLabel, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1.0, constant: -10)
-        NSLayoutConstraint.activate([leadingNoteCountLabelContraints, bottomNoteCountLabelContraints])
-        
-        // Contraints for noteLabel
-        let leadingNoteLabelContraints = NSLayoutConstraint(item: noteLabel, attribute: .leading, relatedBy: .equal, toItem: noteCountLabel, attribute: .trailing, multiplier: 1.0, constant: 5)
-        let bottomNoteLabelContraints = NSLayoutConstraint(item: noteLabel, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1.0, constant: -10)
-        NSLayoutConstraint.activate([leadingNoteLabelContraints, bottomNoteLabelContraints])
+        summaryLabel
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 10)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -10)
+            .bottomAnchor(equalTo: tagsLabel.topAnchor, constant: -10)
+       
+        tagsLabel
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 10)
+            .bottomAnchor(equalTo: noteCountLabel.topAnchor, constant: -10)
+       
+        noteCountLabel
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 10)
+            .bottomAnchor(equalTo: contentView.bottomAnchor, constant: -10)
+       
+        noteLabel
+            .leadingAnchor(equalTo: noteCountLabel.trailingAnchor, constant: 10)
+            .bottomAnchor(equalTo: contentView.bottomAnchor, constant: -10)
     }
     
     @objc fileprivate func readDetails(sender: UIButton!) {

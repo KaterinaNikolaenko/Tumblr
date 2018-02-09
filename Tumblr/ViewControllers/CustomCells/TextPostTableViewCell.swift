@@ -48,14 +48,11 @@ class TextPostTableViewCell: PostTableViewCell {
         mainTextLabel.lineBreakMode = .byWordWrapping
         mainTextLabel.numberOfLines = 3
         
-        contentView.addSubview(mainTextLabel)
-        mainTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Contraints for mainTextLabel
-        let topPostImageViewContraints = NSLayoutConstraint(item: mainTextLabel, attribute: .top, relatedBy: .equal, toItem: blogNameLabel, attribute: .bottom, multiplier: 1.0, constant: 10)
-        let leftPostImageViewContraints = NSLayoutConstraint(item: mainTextLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 10)
-        let rightPostImageViewContraints = NSLayoutConstraint(item: mainTextLabel, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1.0, constant: -10)
-        let bottomPostImageViewContraints = NSLayoutConstraint(item: mainTextLabel, attribute: .bottom, relatedBy: .equal, toItem: summaryLabel, attribute: .top, multiplier: 1.0, constant: -10)
-        NSLayoutConstraint.activate([topPostImageViewContraints, leftPostImageViewContraints, rightPostImageViewContraints, bottomPostImageViewContraints])
+        contentView.addSubview(mainTextLabel)     
+        mainTextLabel
+            .topAnchor(equalTo: blogNameLabel.bottomAnchor, constant: 10)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 10)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -10)
+            .bottomAnchor(equalTo: summaryLabel.topAnchor, constant: -10)
     }
 }

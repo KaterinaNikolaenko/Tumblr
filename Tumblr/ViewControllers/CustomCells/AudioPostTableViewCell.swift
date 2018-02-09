@@ -36,14 +36,11 @@ class AudioPostTableViewCell: PostTableViewCell {
         
         audioUrlLabel.font = Constants.Font.mainFont
         
-        contentView.addSubview(audioUrlLabel)
-        audioUrlLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Contraints for mainTextLabel
-        let topPostImageViewContraints = NSLayoutConstraint(item: audioUrlLabel, attribute: .top, relatedBy: .equal, toItem: blogNameLabel, attribute: .bottom, multiplier: 1.0, constant: 10)
-        let leftPostImageViewContraints = NSLayoutConstraint(item: audioUrlLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 10)
-        let rightPostImageViewContraints = NSLayoutConstraint(item: audioUrlLabel, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1.0, constant: -10)
-        let bottomPostImageViewContraints = NSLayoutConstraint(item: audioUrlLabel, attribute: .bottom, relatedBy: .equal, toItem: summaryLabel, attribute: .top, multiplier: 1.0, constant: -10)
-        NSLayoutConstraint.activate([topPostImageViewContraints, leftPostImageViewContraints, rightPostImageViewContraints, bottomPostImageViewContraints])
+        contentView.addSubview(audioUrlLabel)  
+        audioUrlLabel
+            .topAnchor(equalTo: blogNameLabel.bottomAnchor, constant: 10)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 10)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -10)
+            .bottomAnchor(equalTo: summaryLabel.topAnchor, constant: -10)
     }
 }

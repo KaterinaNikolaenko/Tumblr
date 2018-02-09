@@ -33,7 +33,7 @@ extension DetailsOfBlogViewController {
     fileprivate func setUI()  {
         
         blogNameLabel.font = Constants.Font.mainFont
-        blogNameLabel.textColor = UIColor.red
+        blogNameLabel.textColor = UIColor.gray
         blogNameLabel.text = currentPost?.blogName ?? ""
         
         if let photoPost = currentPost as? PhotoPost {
@@ -46,23 +46,17 @@ extension DetailsOfBlogViewController {
                 }
             }
         }
-        
         self.view.addSubview(postImageView)
         self.view.addSubview(blogNameLabel)
         
-        postImageView.translatesAutoresizingMaskIntoConstraints = false
-        blogNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        postImageView
+            .topAnchor(equalTo: view.topAnchor, constant: 0)
+            .leadingAnchor(equalTo: view.leadingAnchor, constant: 10)
+            .trailingAnchor(equalTo: view.trailingAnchor, constant: -10)
+            .bottomAnchor(equalTo: view.bottomAnchor, constant: -50)
         
-        // Contraints for postImageView
-        let topPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0)
-        let leftPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 10)
-        let rightPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: -10)
-        let bottomPostImageViewContraints = NSLayoutConstraint(item: postImageView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -50)
-        NSLayoutConstraint.activate([topPostImageViewContraints, leftPostImageViewContraints, rightPostImageViewContraints, bottomPostImageViewContraints])
-        
-        // Contraints for blogNameLabel
-        let leadingBlogNameLabelContraints = NSLayoutConstraint(item: blogNameLabel, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 10)
-        let topBlogNameLabelContraints = NSLayoutConstraint(item: blogNameLabel, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -10)
-        NSLayoutConstraint.activate([leadingBlogNameLabelContraints, topBlogNameLabelContraints])
+        blogNameLabel
+            .leadingAnchor(equalTo: view.leadingAnchor, constant: 10)
+            .bottomAnchor(equalTo: view.bottomAnchor, constant: -10)
     }
 }
