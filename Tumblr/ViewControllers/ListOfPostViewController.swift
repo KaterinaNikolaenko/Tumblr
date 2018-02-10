@@ -65,14 +65,6 @@ extension ListOfPostViewController {
             self.tableView.reloadData()
         }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toShowDetails"{
-            let postViewModel = sender as! PostViewModel
-            let detailsVC = segue.destination as? DetailsOfBlogViewController
-            detailsVC!.postViewModel = postViewModel
-        }
-    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -138,7 +130,12 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
 extension ListOfPostViewController: BlogDelegate {
     
     func toReadBlog(){
-        self.performSegue(withIdentifier: "toShowDetails", sender: postViewModel)
+       
+        let detailViewController = DetailsOfBlogViewController()
+        detailViewController.postViewModel = postViewModel
+        detailViewController.view.backgroundColor = .white
+        
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 

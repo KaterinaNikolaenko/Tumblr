@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class DetailsOfBlogViewController: UIViewController {
 
@@ -40,13 +41,7 @@ extension DetailsOfBlogViewController {
         
         if let photoPost = postViewModel.tappedPost as? PhotoPost {
             let imageURL = URL(string: photoPost.urlPhoto)
-            DispatchQueue.global(qos: .utility).async{
-                if let data = try? Data(contentsOf: imageURL!) {
-                    DispatchQueue.main.async {
-                        self.postImageView.image = UIImage(data: data)
-                    }
-                }
-            }
+            postImageView.af_setImage(withURL: imageURL!)
         }
         self.view.addSubview(postImageView)
         self.view.addSubview(blogNameLabel)
