@@ -13,12 +13,12 @@ import AlamofireImage
 class ListOfPostViewController: UIViewController  {
     
     //UI
-    weak var textField = UITextField()
-    
+    var textField = UITextField()
     let tableView: UITableView = UITableView()
+   
+    //Data Source
     var postViewModel = PostViewModel()
-    var tappedPost: Post? = nil
-      
+        
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -48,12 +48,12 @@ extension ListOfPostViewController {
     fileprivate func setNavigationBar() {
         
         textField = UITextField(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 35))
-        textField?.backgroundColor = .white
-        textField?.placeholder = "Enter text here"
-        textField?.borderStyle = UITextBorderStyle.roundedRect
-        textField?.font = UIFont.systemFont(ofSize: 15)
-        textField?.clearButtonMode = UITextFieldViewMode.whileEditing
-        textField?.text = "lol"
+        textField.backgroundColor = .white
+        textField.placeholder = "Enter text here"
+        textField.borderStyle = UITextBorderStyle.roundedRect
+        textField.font = UIFont.systemFont(ofSize: 15)
+        textField.clearButtonMode = UITextFieldViewMode.whileEditing
+        textField.text = "lol"
         
         navigationItem.titleView = textField
         let searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(search))
@@ -61,16 +61,16 @@ extension ListOfPostViewController {
     }
     
     @objc func search() {
-        postViewModel.getPosts(tag: (textField?.text)!) { (success) in
+        postViewModel.getPosts(tag: (textField.text)!) { (success) in
             self.tableView.reloadData()
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toShowDetails"{
-            let post = sender as! Post
+            let postViewModel = sender as! PostViewModel
             let detailsVC = segue.destination as? DetailsOfBlogViewController
-            detailsVC!.currentPost = post
+            detailsVC!.postViewModel = postViewModel
         }
     }
 }
@@ -105,7 +105,7 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
             
             photoPostCell.setPostDataNew(post: photoPost)
             cell = photoPostCell
-            let url = URL(string: photoPost.urls[0])
+            let url = URL(string: photoPost.urlPhoto)
             let filter = AspectRatioScaledToWidthFilter(width: tableView.frame.width)
             photoPostCell.postImageView.af_setImage(withURL: url!, filter: filter, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5),  runImageTransitionIfCached: false) { response in
                 if response.response != nil {
@@ -127,7 +127,7 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
             cell = textPostCell
         }
         cell.delegate = self
-        tappedPost = postViewModel.postsArray[indexPath.row]
+        postViewModel.tappedPost = postViewModel.postsArray[indexPath.row]
         
         return cell
     }
@@ -138,7 +138,7 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
 extension ListOfPostViewController: BlogDelegate {
     
     func toReadBlog(){
-        self.performSegue(withIdentifier: "toShowDetails", sender: tappedPost)
+        self.performSegue(withIdentifier: "toShowDetails", sender: postViewModel)
     }
 }
 

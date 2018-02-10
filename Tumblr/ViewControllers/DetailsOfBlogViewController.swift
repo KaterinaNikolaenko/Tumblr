@@ -13,8 +13,10 @@ class DetailsOfBlogViewController: UIViewController {
     //UI
     let postImageView = UIImageView()
     let blogNameLabel = UILabel()
-    var currentPost: Post? = nil
     
+    //Data Source
+    var postViewModel = PostViewModel()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,10 +36,10 @@ extension DetailsOfBlogViewController {
         
         blogNameLabel.font = Constants.Font.mainFont
         blogNameLabel.textColor = UIColor.gray
-        blogNameLabel.text = currentPost?.blogName ?? ""
+        blogNameLabel.text = postViewModel.tappedPost?.blogName ?? ""
         
-        if let photoPost = currentPost as? PhotoPost {
-            let imageURL = URL(string: photoPost.urls[0])
+        if let photoPost = postViewModel.tappedPost as? PhotoPost {
+            let imageURL = URL(string: photoPost.urlPhoto)
             DispatchQueue.global(qos: .utility).async{
                 if let data = try? Data(contentsOf: imageURL!) {
                     DispatchQueue.main.async {

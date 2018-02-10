@@ -12,6 +12,7 @@ class VideoPostTableViewCell: PostTableViewCell {
 
     //UI
     let videoUrlLabel = UILabel()
+   
     var urlPost: String? = nil
     
     // MARK: - LifeCycle

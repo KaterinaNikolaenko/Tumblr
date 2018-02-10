@@ -9,10 +9,14 @@
 import Foundation
 
 class PhotoPost: Post {
-    var urls: [String]
+    var urlPhoto: String
+    var width: Int
+    var height: Int
     
-    init(blogName: String, noteCount: Int, summary: String, tags: String, urls: [String]) {
-        self.urls = urls
+    init(blogName: String, noteCount: Int, summary: String, tags: String, urlPhoto: String, width: Int, height:Int) {
+        self.urlPhoto = urlPhoto
+        self.width = width
+        self.height = height
         super.init(blogName: blogName, noteCount: noteCount, summary: summary, tags: tags)
     }
 }
