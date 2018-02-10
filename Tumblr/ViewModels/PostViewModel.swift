@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class PostViewModel: NSObject {
     
@@ -31,5 +32,12 @@ class PostViewModel: NSObject {
     
     func numberOfRowsInSection() -> Int {
         return postsArray.count
+    }
+    func setHeightCell(post:PhotoPost) -> CGFloat {
+        let screenWidth = UIScreen.main.bounds.width
+        let ratio =  CGFloat(post.height) / CGFloat(post.width)
+        
+        let newHeight = screenWidth * ratio
+        return newHeight
     }
 }

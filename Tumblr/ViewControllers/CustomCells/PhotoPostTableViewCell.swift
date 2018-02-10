@@ -27,7 +27,7 @@ class PhotoPostTableViewCell: PostTableViewCell {
     }
     
     func setPostDataNew(post:PhotoPost){
-        
+        self.postImageView.contentMode = .scaleAspectFit
         super.setPostData(post: post)
     }
     
@@ -35,12 +35,11 @@ class PhotoPostTableViewCell: PostTableViewCell {
 //        self.postImageView.contentMode = .scaleAspectFit
 //        let screenWidth = UIScreen.main.bounds.width
 //        let ratio =  CGFloat(image.size.height) / CGFloat(image.size.width)
-//        
+//
 //        let newHeight = screenWidth * ratio
 //        let heightPostImageViewContraints = NSLayoutConstraint(item: self.postImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: newHeight)
 //        NSLayoutConstraint.activate([heightPostImageViewContraints])
 //        self.postImageView.image = image
-//        
 //    }
     
     override func setUI()  {

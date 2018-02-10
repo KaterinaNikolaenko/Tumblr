@@ -77,8 +77,8 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.dataSource = self
         tableView.delegate = self
         
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 200
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 200
         
         self.view.addSubview(tableView)
     }
@@ -98,13 +98,14 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
             photoPostCell.setPostDataNew(post: photoPost)
             cell = photoPostCell
             let url = URL(string: photoPost.urlPhoto)
-            let filter = AspectRatioScaledToWidthFilter(width: tableView.frame.width)
-            photoPostCell.postImageView.af_setImage(withURL: url!, filter: filter, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5),  runImageTransitionIfCached: false) { response in
-                if response.response != nil {
-                    self.tableView.beginUpdates()
-                    self.tableView.endUpdates()
-                }
-            }
+//            let filter = AspectRatioScaledToWidthFilter(width: tableView.frame.width)
+//            photoPostCell.postImageView.af_setImage(withURL: url!, filter: filter, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5),  runImageTransitionIfCached: false) { response in
+//                if response.response != nil {
+//                    self.tableView.beginUpdates()
+//                    self.tableView.endUpdates()
+//                }
+//            }
+            photoPostCell.postImageView.af_setImage(withURL: url!)
         } else if let videoPost = post as? VideoPost {
             let videoPostCell = VideoPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellVideo")
             videoPostCell.setPostData(post: videoPost)
@@ -122,6 +123,15 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
         postViewModel.tappedPost = postViewModel.postsArray[indexPath.row]
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let post = postViewModel.postsArray[indexPath.row]
+        if let photoPost = post as? PhotoPost {
+            return postViewModel.setHeightCell(post: photoPost)
+        } else {
+            return 100
+        }
     }
 }
 
