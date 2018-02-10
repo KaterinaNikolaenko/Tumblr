@@ -14,7 +14,7 @@ class ListOfPostViewController: UIViewController  {
     
     //UI
     var textField = UITextField()
-    let tableView: UITableView = UITableView()
+    let tableView = UITableView()
    
     //Data Source
     var postViewModel = PostViewModel()
@@ -27,7 +27,7 @@ class ListOfPostViewController: UIViewController  {
         
         setTableView()
         
-        postViewModel.getPosts(tag: "lol") { (success) in
+        postViewModel.getPosts(tag: "lol") { [unowned self] (success) in
             self.tableView.reloadData()
         }
     }
@@ -61,7 +61,7 @@ extension ListOfPostViewController {
     }
     
     @objc func search() {
-        postViewModel.getPosts(tag: (textField.text)!) { (success) in
+        postViewModel.getPosts(tag: (textField.text)!) { [unowned self] (success) in
             self.tableView.reloadData()
         }
     }
@@ -76,9 +76,11 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.frame = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         tableView.dataSource = self
         tableView.delegate = self
-        
-//        tableView.rowHeight = UITableViewAutomaticDimension
-//        tableView.estimatedRowHeight = 200
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(PhotoPostTableViewCell.self, forCellReuseIdentifier: "cellPhoto")
+        tableView.register(VideoPostTableViewCell.self, forCellReuseIdentifier: "cellVideo")
+        tableView.register(TextPostTableViewCell.self, forCellReuseIdentifier: "cellText")
+        tableView.register(AudioPostTableViewCell.self, forCellReuseIdentifier: "cellAudio")
         
         self.view.addSubview(tableView)
     }
@@ -89,38 +91,30 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = PostTableViewCell()
+        var cell = self.tableView.dequeueReusableCell(withIdentifier: "cell") as! PostTableViewCell
         let post = postViewModel.postsArray[indexPath.row]
         
         if let photoPost = post as? PhotoPost {
-            let photoPostCell = PhotoPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellPhoto")
-            
-            photoPostCell.setPostDataNew(post: photoPost)
+            let photoPostCell = self.tableView.dequeueReusableCell(withIdentifier: "cellPhoto") as! PhotoPostTableViewCell
+            photoPostCell.setPostData(post: photoPost)
             cell = photoPostCell
             let url = URL(string: photoPost.urlPhoto)
-//            let filter = AspectRatioScaledToWidthFilter(width: tableView.frame.width)
-//            photoPostCell.postImageView.af_setImage(withURL: url!, filter: filter, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5),  runImageTransitionIfCached: false) { response in
-//                if response.response != nil {
-//                    self.tableView.beginUpdates()
-//                    self.tableView.endUpdates()
-//                }
-//            }
             photoPostCell.postImageView.af_setImage(withURL: url!)
         } else if let videoPost = post as? VideoPost {
-            let videoPostCell = VideoPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellVideo")
+            let videoPostCell = self.tableView.dequeueReusableCell(withIdentifier: "cellVideo") as! VideoPostTableViewCell
             videoPostCell.setPostData(post: videoPost)
             cell = videoPostCell
         } else if let audioPost = post as? AudioPost {
-            let audioPostCell = AudioPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellAudio")
+            let audioPostCell = self.tableView.dequeueReusableCell(withIdentifier: "cellAudio") as! AudioPostTableViewCell
             audioPostCell.setPostData(post: audioPost)
             cell = audioPostCell
         } else {
-            let textPostCell = TextPostTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellText")
+            let textPostCell = self.tableView.dequeueReusableCell(withIdentifier: "cellText") as! TextPostTableViewCell
             textPostCell.setPostData(post: post)
             cell = textPostCell
         }
+        cell.toReadButton.tag = indexPath.item
         cell.delegate = self
-        postViewModel.tappedPost = postViewModel.postsArray[indexPath.row]
         
         return cell
     }
@@ -128,9 +122,9 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let post = postViewModel.postsArray[indexPath.row]
         if let photoPost = post as? PhotoPost {
-            return postViewModel.setHeightCell(post: photoPost)
+            return postViewModel.calculateCellHeight(post: photoPost)
         } else {
-            return 100
+            return 200
         }
     }
 }
@@ -138,9 +132,10 @@ extension ListOfPostViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - BlogDelegate
 
 extension ListOfPostViewController: BlogDelegate {
-    
-    func toReadBlog(){
-       
+
+    func toReadBlog(sender: UIButton){
+        
+        postViewModel.tappedPost = postViewModel.postsArray[sender.tag]
         let detailViewController = DetailsOfBlogViewController()
         detailViewController.postViewModel = postViewModel
         detailViewController.view.backgroundColor = .white

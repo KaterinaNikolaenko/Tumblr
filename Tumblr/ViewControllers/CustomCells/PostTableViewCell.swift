@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol BlogDelegate: class {
-    func toReadBlog()
+    func toReadBlog(sender: UIButton)
 }
 
 class PostTableViewCell: UITableViewCell {
@@ -101,7 +101,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @objc fileprivate func readDetails(sender: UIButton!) {
-        delegate?.toReadBlog()
+        delegate?.toReadBlog(sender: sender)
     }
 }
 

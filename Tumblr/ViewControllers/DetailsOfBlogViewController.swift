@@ -39,6 +39,8 @@ extension DetailsOfBlogViewController {
         blogNameLabel.textColor = UIColor.gray
         blogNameLabel.text = postViewModel.tappedPost?.blogName ?? ""
         
+        self.postImageView.contentMode = .scaleAspectFit
+        
         if let photoPost = postViewModel.tappedPost as? PhotoPost {
             let imageURL = URL(string: photoPost.urlPhoto)
             postImageView.af_setImage(withURL: imageURL!)

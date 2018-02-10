@@ -26,21 +26,10 @@ class PhotoPostTableViewCell: PostTableViewCell {
         fatalError("init(coder:)")
     }
     
-    func setPostDataNew(post:PhotoPost){
-        self.postImageView.contentMode = .scaleAspectFit
+    func setPostData(post:PhotoPost){
         super.setPostData(post: post)
+        self.postImageView.contentMode = .scaleAspectFit
     }
-    
-//    func setPhoto (image: UIImage) {
-//        self.postImageView.contentMode = .scaleAspectFit
-//        let screenWidth = UIScreen.main.bounds.width
-//        let ratio =  CGFloat(image.size.height) / CGFloat(image.size.width)
-//
-//        let newHeight = screenWidth * ratio
-//        let heightPostImageViewContraints = NSLayoutConstraint(item: self.postImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: newHeight)
-//        NSLayoutConstraint.activate([heightPostImageViewContraints])
-//        self.postImageView.image = image
-//    }
     
     override func setUI()  {
         super.setUI()
